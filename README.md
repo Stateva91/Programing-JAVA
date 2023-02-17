@@ -3,8 +3,9 @@ This is a repository with solutions of problems in SoftUni Course: Programing  w
 
 # Certificates
 
+<a href="https://softuni.bg/Certificates/Details/134585/1c28729b"> ![images](https://user-images.githubusercontent.com/114188863/219790695-cabda63f-48e5-4a7e-853c-1d3c642c79af.png)
 
-<a href="https://softuni.bg/Certificates/Details/140148/1dc3f6b5"> ![188857264-eccc12ad-6b77-401a-8b09-1bec19f82ba4](https://user-images.githubusercontent.com/114188863/219788698-d02966a1-cc56-4cf6-8654-fc7788ebacaa.png)</a>
+ </a>
 
 
 

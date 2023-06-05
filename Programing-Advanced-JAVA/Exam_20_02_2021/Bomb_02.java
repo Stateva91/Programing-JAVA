@@ -1,7 +1,5 @@
 package Exam_20_02_2021;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Bomb_02 {

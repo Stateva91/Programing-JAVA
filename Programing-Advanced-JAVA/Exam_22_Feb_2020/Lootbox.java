@@ -8,30 +8,33 @@ public class Lootbox {
 
         ArrayDeque<Integer> firstBox=new ArrayDeque<>();
         ArrayDeque<Integer> secondStack=new ArrayDeque<>();
-        int loot=0;
+
 
         String input= scanner.nextLine();
 
         Arrays.stream(input.split("\\s+"))
                 .map(Integer:: parseInt)
-                .forEach(firstBox::offer);
+                .forEach(firstBox::push);
 
         Arrays.stream(input.split("\\s+"))
                 .map(Integer:: parseInt)
-                .forEach(secondStack::push);
+                .forEach(secondStack::offer);
 
+        List<Integer> box=new ArrayList<>();
+        int loop=0;
         while (!firstBox.isEmpty() && !secondStack.isEmpty()){
             int firstBoxItem=firstBox.peek();
-            int secondBoxItem=secondStack.pop();
+            int secondBoxItem=secondStack.poll();
             int sum=firstBoxItem+secondBoxItem;
 
             if(sum%2==0){
-                firstBox.poll();
+                firstBox.pop();
               //  secondStack.pop();
-                loot+=sum;
+                loop +=sum;
+
             } else {
                // secondStack.pop();
-                firstBox.offer(secondBoxItem);
+                firstBox.push(secondBoxItem);
             }
         }
         if(firstBox.isEmpty()){
@@ -39,10 +42,10 @@ public class Lootbox {
         } else {
             System.out.println("Second lootbox is empty");
         }
-        if(loot>=100){
-            System.out.printf("Your loot was epic! Value: %d", loot);
+        if(loop>=100){
+            System.out.printf("Your loot was epic! Value: %d", loop);
         } else {
-            System.out.printf("Your loot was poor... Value: %d", loot);
+            System.out.printf("Your loot was poor... Value: %d", loop);
         }
     }
 

@@ -4,48 +4,53 @@ import java.util.*;
 
 public class Lootbox {
     public static void main(String[] args) {
-         Scanner scanner=new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-        ArrayDeque<Integer> firstBox=new ArrayDeque<>();
-        ArrayDeque<Integer> secondStack=new ArrayDeque<>();
+        ArrayDeque<Integer> firstBox = new ArrayDeque<>();
+        ArrayDeque<Integer> secondStack = new ArrayDeque<>();
 
+        String input1 = scanner.nextLine();
+        String input2 = scanner.nextLine();
 
-        String input= scanner.nextLine();
+        Arrays.stream(input1.split("\\s+"))
+                .map(Integer::parseInt)
+                .forEach(firstBox::offer);
 
-        Arrays.stream(input.split("\\s+"))
-                .map(Integer:: parseInt)
-                .forEach(firstBox::push);
+        Arrays.stream(input2.split("\\s+"))
+                .map(Integer::parseInt)
+                .forEach(secondStack::push);
 
-        Arrays.stream(input.split("\\s+"))
-                .map(Integer:: parseInt)
-                .forEach(secondStack::offer);
+        List<Integer> box = new ArrayList<>();
 
-        List<Integer> box=new ArrayList<>();
-        int loop=0;
-        while (!firstBox.isEmpty() && !secondStack.isEmpty()){
-            int firstBoxItem=firstBox.peek();
-            int secondBoxItem=secondStack.poll();
-            int sum=firstBoxItem+secondBoxItem;
+        while (!firstBox.isEmpty() && !secondStack.isEmpty()) {
+            int firstBoxItem = firstBox.peek();
+            int secondBoxItem = secondStack.peek();
+            int sum = firstBoxItem + secondBoxItem;
 
-            if(sum%2==0){
-                firstBox.pop();
-              //  secondStack.pop();
-                loop +=sum;
+            if (sum % 2 == 0) {
+                box.add(sum);
+                firstBox.poll();
+                secondStack.pop();
 
             } else {
-               // secondStack.pop();
-                firstBox.push(secondBoxItem);
+                int last = secondStack.pop();
+                firstBox.offer(last);
             }
         }
-        if(firstBox.isEmpty()){
+        if (firstBox.isEmpty()) {
             System.out.println("First lootbox is empty");
+
         } else {
             System.out.println("Second lootbox is empty");
         }
-        if(loop>=100){
-            System.out.printf("Your loot was epic! Value: %d", loop);
+    int sum=0;
+    for(int num: box){
+        sum += num;
+    }
+        if(sum>=100){
+            System.out.printf("Your loot was epic! Value: %d", sum);
         } else {
-            System.out.printf("Your loot was poor... Value: %d", loop);
+            System.out.printf("Your loot was poor... Value: %d", sum);
         }
     }
 

@@ -24,7 +24,11 @@ public class AddingNewAddressAndUpdatingEmployee {
                 .setParameter("ln", lastName)
                 .executeUpdate();
 
-        entityManager.getTransaction().commit();
+       if( count>0){
+           entityManager.getTransaction().commit();
+       } else{
+           entityManager.getTransaction().rollback();
+       }
         entityManager.close();
 
         System.out.println(count);

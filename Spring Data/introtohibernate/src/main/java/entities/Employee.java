@@ -134,7 +134,9 @@ public class Employee {
     @Override
     public String toString() {
         return firstName+ " "+ lastName +" - "+ department.getName()+ "\n" +
-                projects.stream().sorted(Comparator.comparing(Project::getName))
-                        .map(Project::getName).collect(Collectors.joining(System.lineSeparator()));
+                projects.stream()
+                        .map(Project::getName)
+                        .sorted()
+                        .collect(Collectors.joining(System.lineSeparator()));
     }
 }

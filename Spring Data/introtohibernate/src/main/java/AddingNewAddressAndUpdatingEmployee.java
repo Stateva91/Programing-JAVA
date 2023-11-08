@@ -9,6 +9,7 @@ public class AddingNewAddressAndUpdatingEmployee {
        final EntityManager entityManager = Persistence.createEntityManagerFactory("soft_uni")
                 .createEntityManager();
 
+
        final String lastName=new Scanner(System.in).nextLine();
 
         entityManager.getTransaction().begin();

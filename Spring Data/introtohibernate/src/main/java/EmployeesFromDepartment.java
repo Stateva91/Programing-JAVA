@@ -20,7 +20,7 @@ public class EmployeesFromDepartment {
               .forEach(e-> System.out.printf(PRINT_EMP_FORMAT,
                     e.getFirstName(),
                     e.getLastName(),
-                    e.getDepartment(),
+                    e.getDepartment().getName(),
                     e.getSalary()));
 
       entityManager.getTransaction().commit();

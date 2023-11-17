@@ -3,6 +3,7 @@ package com.example.springinitdemo.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name="users")
@@ -57,11 +58,16 @@ public class User {
         this.age = age;
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public List<Long> getAccountIds() {
+        return this.accounts.stream()
+                .map(Account::getId)
+                .collect(Collectors.toList());
     }
 
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
+    public void addAccount(Account account){
+
+    }
+    public void removeAccount(Account account){
+
     }
 }

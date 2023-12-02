@@ -1,5 +1,6 @@
 package com.example.jsonexercise;
 
+import com.example.jsonexercise.services.CategoryService;
 import com.example.jsonexercise.services.ProductService;
 import com.example.jsonexercise.services.SeedService;
 import com.example.jsonexercise.services.UserService;
@@ -13,12 +14,14 @@ public class CommandRunner implements CommandLineRunner {
     private final SeedService seedService;
     private final ProductService productService;
     private final UserService userService;
+    private final CategoryService categoryService;
 
     @Autowired
-    public CommandRunner(SeedService seedService, ProductService productService, UserService userService) {
+    public CommandRunner(SeedService seedService, ProductService productService, UserService userService, CategoryService categoryService) {
         this.seedService = seedService;
         this.productService = productService;
         this.userService = userService;
+        this.categoryService = categoryService;
     }
 
     @Override
@@ -29,6 +32,9 @@ public class CommandRunner implements CommandLineRunner {
 //           BigDecimal.valueOf(500),
 //           BigDecimal.valueOf(1000));
 
-        this.userService.findAllBySellingProductsBuyerIsNotNullOrderBySellingProductsBuyerFirstName();
+  //      this.userService.findAllBySellingProductsBuyerIsNotNullOrderBySellingProductsBuyerFirstName();
+  //   this.categoryService.getCategorySummary();
+        this.userService.usersAndProducts();
+
     }
 }

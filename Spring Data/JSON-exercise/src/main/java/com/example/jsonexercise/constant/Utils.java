@@ -21,4 +21,11 @@ public enum Utils {
        fileWriter.flush();
        fileWriter.close();
     }
+    public static  void writeJsonIntoFile( Object objects, Path filePath) throws IOException {
+        final FileWriter fileWriter = new FileWriter(filePath.toFile());
+        GSON.toJson(objects, fileWriter);
+
+        fileWriter.flush();
+        fileWriter.close();
+    }
 }

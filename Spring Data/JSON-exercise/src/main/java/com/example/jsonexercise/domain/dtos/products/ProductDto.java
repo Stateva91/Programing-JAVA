@@ -11,7 +11,9 @@ import lombok.Setter;
 
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -31,4 +33,5 @@ public class ProductDto {
     public ProductInRangeWithNoBayerDto toProductInRangeWithNoBayerDto(){
         return new ProductInRangeWithNoBayerDto(name, price, seller.getFullName());
     }
+
 }

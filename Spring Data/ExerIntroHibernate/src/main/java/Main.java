@@ -1,3 +1,4 @@
+import entities.Address;
 import entities.Employee;
 import entities.Town;
 
@@ -21,8 +22,27 @@ public class Main {
        // ex_3(entityManager);
       // ex_2(entityManager);
       //  EmployeesWithSalaryOver50000_4(entityManager);
-        EmployeesFromDepartment_5(entityManager);
+      //  EmployeesFromDepartment_5(entityManager);
+        AddingANewAddressAndUpdatingEmployee_6(entityManager);
        entityManager.getTransaction().commit();
+    }
+
+    private static void AddingANewAddressAndUpdatingEmployee_6(EntityManager entityManager) throws IOException {
+       Town town=entityManager.find(Town.class, 32);
+        Address address=new Address();
+        address.setText("Vitoshka 15");
+        address.setTown(town);
+
+        entityManager.persist(address);
+        String lastName= READER.readLine();
+        List<Employee> resultList=entityManager.createQuery("FROM Employee WHERE lastName= :lastName", Employee.class)
+                .setParameter("lastName", lastName)
+                .getResultList();
+        if (!resultList.isEmpty()){
+            Employee employee= resultList.get(0);
+            employee.setAddress(address);
+            entityManager.persist(employee);
+        }
     }
 
     private static void EmployeesFromDepartment_5(EntityManager entityManager) {

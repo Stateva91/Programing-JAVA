@@ -4,6 +4,7 @@ import entities.Town;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -19,9 +20,26 @@ public class Main {
 
         entityManager.getTransaction().begin();
        // ex_3(entityManager);
-       ex_2(entityManager);
+      // ex_2(entityManager);
+      //  EmployeesWithSalaryOver50000_4(entityManager);
+        EmployeesFromDepartment_5(entityManager);
        entityManager.getTransaction().commit();
     }
+
+    private static void EmployeesFromDepartment_5(EntityManager entityManager) {
+        Query query = entityManager.createQuery("FROM Employee e JOIN e.department d WHERE d.id=6");
+        List resultList=query.getResultList();
+        System.out.println();
+    }
+
+    private static void EmployeesWithSalaryOver50000_4(EntityManager entityManager) {
+   entityManager.createQuery("FROM Employee WHERE salary>50000", Employee.class)
+           .getResultStream()
+           .map(Employee::getFirstName)
+           .forEach(System.out::println);
+
+    }
+
 
     private static void ex_2(EntityManager entityManager) {
         List<Town> resultList = entityManager.createQuery("FROM Town WHERE LENGTH(name)>5", Town.class).getResultList();

@@ -1,4 +1,5 @@
 import entities.Employee;
+import entities.Town;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,10 +17,24 @@ public class Main {
 
         EntityManager entityManager= entityManagerFactory.createEntityManager();
 
-        ex_1(entityManager);
+        entityManager.getTransaction().begin();
+       // ex_3(entityManager);
+       ex_2(entityManager);
+       entityManager.getTransaction().commit();
     }
 
-    private static void ex_1(EntityManager entityManager) throws IOException {
+    private static void ex_2(EntityManager entityManager) {
+        List<Town> resultList = entityManager.createQuery("FROM Town WHERE LENGTH(name)>5", Town.class).getResultList();
+
+        resultList.forEach(town -> {
+            town.setName(town.getName().toUpperCase());
+            entityManager.persist(town);
+        });
+
+
+    }
+
+    private static void ex_3(EntityManager entityManager) throws IOException {
         String[] input=READER.readLine().split("\\s+");
         List<Employee> resultList = entityManager.createQuery("FROM Employee WHERE firstName= :first_name AND lastName= :last_name", Employee.class)
                 .setParameter("first_name", input[0])

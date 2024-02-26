@@ -1,7 +1,4 @@
-import entities.Address;
-import entities.Employee;
-import entities.Project;
-import entities.Town;
+import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -32,8 +29,28 @@ public class Main {
         //GetEmployeeWithProject_8(entityManager);
         //FindLatest10Projects_9(entityManager);
        // IncreaseSalaries_10(entityManager);
-        FindEmployeesByFirstName_11(entityManager);
+       // FindEmployeesByFirstName_11(entityManager);
+       // EmployeesMaximumSalaries_12(entityManager);
+        RemoveTowns_13(entityManager);
         entityManager.getTransaction().commit();
+    }
+
+    private static void RemoveTowns_13(EntityManager entityManager) {
+        
+    }
+
+    private static void EmployeesMaximumSalaries_12(EntityManager entityManager) {
+        List<Department> departments = entityManager.createQuery("FROM Department ", Department.class).getResultList();
+         departments.forEach(d->{
+             double departmentMaxSalary=d.getEmployees()
+                     .stream()
+                     .mapToDouble(e->e.getSalary().doubleValue())
+                     .max().orElse(0);
+             if(departmentMaxSalary<3000 || departmentMaxSalary> 7000){
+                 System.out.printf("%s %.2f%n", d.getName(), departmentMaxSalary);
+             }
+         });
+
     }
 
     private static void FindEmployeesByFirstName_11(EntityManager entityManager) throws IOException{

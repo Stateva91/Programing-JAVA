@@ -2,21 +2,31 @@ package inheritance.entities;
 
 import jakarta.persistence.*;
 
+import java.math.BigDecimal;
+
 @Entity
-@Table(name="vehicles")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Vehicle {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+@Table(name = "vehicles")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public abstract class Vehicle extends IdType {
+    @Basic
+    private String model;
 
     @Basic
-    private String type;
+    private BigDecimal price;
 
-    protected Vehicle(){
+    @Column(name = "fuel_type")
+    private String fuelType;
 
+    protected Vehicle() {}
+
+    protected Vehicle(String type) {
+        super.type = type;
     }
-    protected Vehicle(String type){
-        this.type=type;
+
+    protected Vehicle(String type, String model, BigDecimal price, String fuelType) {
+        this.type = type;
+        this.model = model;
+        this.price = price;
+        this.fuelType = fuelType;
     }
 }

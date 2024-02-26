@@ -3,12 +3,17 @@ package inheritance.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 
-@Entity
-@Table(name="bikes")
-public class Bike extends Vehicle {
+import java.math.BigDecimal;
 
-    private static final String BIKE_TYPE= "BIKE";
-    public Bike(){
-        super(BIKE_TYPE);
+@Entity
+public class Bike extends Vehicle {
+    private static final String BIKE_TYPE = "BIKE";
+
+    public Bike() {
     }
+
+    public Bike(String model, BigDecimal price, String fuelType) {
+        super(BIKE_TYPE, model, price, fuelType);
+    }
+
 }

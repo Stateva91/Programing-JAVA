@@ -31,8 +31,16 @@ public class Main {
         // AddressesWithEmployeeCount_7(entityManager);
         //GetEmployeeWithProject_8(entityManager);
         //FindLatest10Projects_9(entityManager);
-        IncreaseSalaries_10(entityManager);
+       // IncreaseSalaries_10(entityManager);
+        FindEmployeesByFirstName_11(entityManager);
         entityManager.getTransaction().commit();
+    }
+
+    private static void FindEmployeesByFirstName_11(EntityManager entityManager) throws IOException{
+        entityManager.createQuery("FROM Employee WHERE firstName LIKE CONCAT(:letters, '%')", Employee.class)
+                .setParameter("letters", READER.readLine())
+                .getResultStream()
+                .forEach(e-> System.out.printf("%s %s - ($%.2f)%n",e.getFirstName(), e.getLastName(), e.getJobTitle(), e.getSalary()));
     }
 
     private static void IncreaseSalaries_10(EntityManager entityManager) {

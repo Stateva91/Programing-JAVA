@@ -35,8 +35,26 @@ public class Main {
         entityManager.getTransaction().commit();
     }
 
-    private static void RemoveTowns_13(EntityManager entityManager) {
-        
+    private static void RemoveTowns_13(EntityManager entityManager) throws IOException {
+        List<Town> resultList=entityManager.createQuery("FROM Town WHERE name= :name", Town.class)
+                .setParameter("name", READER.readLine())
+                .getResultList();
+
+        if(!resultList.isEmpty()){
+            Town town= resultList.get(0);
+            List<Address> addresses= entityManager.createQuery("SELECT a FROM Address a JOIN a.town t WHERE t.name= :name", Address.class)
+                    .setParameter("name", town.getName())
+                    .getResultList();
+            addresses.forEach(a->{
+                a.getEmployees().forEach(e->{
+                    e.setAddress(null);
+                    entityManager.persist(e);
+                });
+                entityManager.refresh(a);
+            });
+            System.out.printf("%d addresses in %s deleted", addresses.size(), town.getName());
+            entityManager.remove(town);
+        }
     }
 
     private static void EmployeesMaximumSalaries_12(EntityManager entityManager) {

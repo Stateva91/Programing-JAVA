@@ -27,8 +27,21 @@ public class Main {
       //  EmployeesFromDepartment_5(entityManager);
       //  AddingANewAddressAndUpdatingEmployee_6(entityManager);
         // AddressesWithEmployeeCount_7(entityManager);
-        GetEmployeeWithProject_8(entityManager);
+        //GetEmployeeWithProject_8(entityManager);
+        FindLatest10Projects_9(entityManager);
         entityManager.getTransaction().commit();
+    }
+
+    private static void FindLatest10Projects_9(EntityManager entityManager) {
+        entityManager.createQuery("FROM Project ORDER BY startDate DESC, name", Project.class)
+                .setMaxResults(10)
+                .getResultStream()
+                .forEach(p-> System.out.printf("Project name: %s%n" +
+                        "  Project Description: %s%n" +
+                        "  Project Start Date: %s%n" +
+                        "  Project End Date: %s%n",
+                        p.getName(), p.getDescription(), p.getStartDate(), p.getEndDate()));
+
     }
 
     private static void GetEmployeeWithProject_8(EntityManager entityManager) throws IOException {

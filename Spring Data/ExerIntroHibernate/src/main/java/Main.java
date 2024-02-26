@@ -1,5 +1,6 @@
 import entities.Address;
 import entities.Employee;
+import entities.Project;
 import entities.Town;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.Persistence;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -23,8 +25,31 @@ public class Main {
       // ex_2(entityManager);
       //  EmployeesWithSalaryOver50000_4(entityManager);
       //  EmployeesFromDepartment_5(entityManager);
-        AddingANewAddressAndUpdatingEmployee_6(entityManager);
-       entityManager.getTransaction().commit();
+      //  AddingANewAddressAndUpdatingEmployee_6(entityManager);
+        // AddressesWithEmployeeCount_7(entityManager);
+        GetEmployeeWithProject_8(entityManager);
+        entityManager.getTransaction().commit();
+    }
+
+    private static void GetEmployeeWithProject_8(EntityManager entityManager) throws IOException {
+
+        Employee employee = entityManager
+                .createQuery("FROM Employee e WHERE e.id=?1", Employee.class)
+                .setParameter(1, Integer.parseInt(READER.readLine()))
+                .getSingleResult();
+        System.out.printf("%s %s - %s%n", employee.getFirstName(), employee.getLastName(), employee.getJobTitle());
+        employee.getProjects()
+                .stream()
+                .sorted(Comparator.comparing(Project::getName))
+                .forEach(p-> System.out.printf("   %s%n", p.getName()));
+    }
+
+    private static void AddressesWithEmployeeCount_7(EntityManager entityManager) {
+    entityManager.createQuery("FROM Address ORDER BY employees.size DESC", Address.class)
+            .setMaxResults(10)
+            .getResultStream()
+            .forEach(a-> System.out.printf("%s, %s - %d employees%n", a.getText(), a.getTown().getName(), a.getEmployees().size()));
+
     }
 
     private static void AddingANewAddressAndUpdatingEmployee_6(EntityManager entityManager) throws IOException {

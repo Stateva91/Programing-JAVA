@@ -11,16 +11,16 @@ import java.util.Set;
 public class Sale extends BaseEntity {
     @Column
     private LocalDate date;
-    @OneToMany
-    @JoinColumn(name="product_id")
-    private Set<Product> product;
+    @ManyToOne
+    @JoinColumn(name="product_id", referencedColumnName = "id")
+    private Product product;
 
-    @OneToMany
-    @JoinColumn(name="customer_id")
-    private Set<Customer> customer;
+    @ManyToOne
+    @JoinColumn(name="customer_id",  referencedColumnName = "id")
+    private Customer customer;
 
-    @OneToOne
-    @JoinColumn(name="store_location_id")
+    @ManyToOne
+    @JoinColumn(name="store_location_id",  referencedColumnName = "id")
     private StoreLocation storeLocation;
 
 }

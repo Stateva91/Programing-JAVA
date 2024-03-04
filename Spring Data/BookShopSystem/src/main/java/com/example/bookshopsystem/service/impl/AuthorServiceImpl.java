@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class AuthorServiceImpl implements AuthorService {
@@ -35,6 +36,7 @@ private static final String FILE_PATH="src/main/resources/files/authors.txt";
 
     @Override
     public Author getRandomAuthor() {
-        return null;
+        int randomId = ThreadLocalRandom.current().nextInt(1, (int) this.authorRepository.count()+1);
+        return  this.authorRepository.findById(randomId).get();
     }
 }

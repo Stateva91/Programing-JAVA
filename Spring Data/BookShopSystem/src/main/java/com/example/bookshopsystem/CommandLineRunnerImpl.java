@@ -27,8 +27,12 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         seedData();
+        getAllBooksAfterYear2000();
     }
-
+    private void getAllBooksAfterYear2000(){
+        this.bookService.findAllBooksAfterYear2000()
+                .forEach(System.out::println);
+    };
     private void seedData() throws IOException {
         this.categoryService.seedCategories();
         this.authorService.seedAuthors();

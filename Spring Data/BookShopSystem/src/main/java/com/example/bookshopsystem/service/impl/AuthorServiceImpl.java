@@ -32,4 +32,9 @@ private static final String FILE_PATH="src/main/resources/files/authors.txt";
                 });
 
     }
+
+    @Override
+    public Author getRandomAuthor() {
+        return null;
+    }
 }

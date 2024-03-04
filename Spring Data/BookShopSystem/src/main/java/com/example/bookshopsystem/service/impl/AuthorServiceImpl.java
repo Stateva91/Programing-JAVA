@@ -23,15 +23,15 @@ private static final String FILE_PATH="src/main/resources/files/authors.txt";
 
     @Override
     public void seedAuthors() throws IOException {
-
-        Files.readAllLines(Path.of(FILE_PATH))
-                .stream()
-                .filter(row-> !row.isEmpty())
-                .forEach(row->{
-                    String[] tokens = row.split("\\s+");
-                 this.authorRepository.saveAndFlush(new Author(tokens[0], tokens[1]));
-                });
-
+if(this.authorRepository.count()==0) {
+    Files.readAllLines(Path.of(FILE_PATH))
+            .stream()
+            .filter(row -> !row.isEmpty())
+            .forEach(row -> {
+                String[] tokens = row.split("\\s+");
+                this.authorRepository.saveAndFlush(new Author(tokens[0], tokens[1]));
+            });
+}
     }
 
     @Override

@@ -27,7 +27,26 @@ public class CommandLineRunnerImpl implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         seedData();
-        getAllBooksAfterYear2000();
+       // getAllBooksAfterYear2000();
+      //  getAuthorsFirstLAstNameBeforeBooks1990();
+      // getAllAuthorsByBooksDesc();
+        printBooksByGeorgePowell();
+
+    }
+
+    private void printBooksByGeorgePowell() {
+        this.bookService.findAllByBookByGeorgePowellOrdered()
+                .forEach(System.out::println);
+    }
+
+    private void getAllAuthorsByBooksDesc() {
+        this.authorService.getAllAuthorsDescBooks()
+                .forEach(System.out::println);
+    }
+
+    private void getAuthorsFirstLAstNameBeforeBooks1990(){
+        this.authorService.getAllAuthorFirstAndLastNameForBooksBeforeYear1990()
+                .forEach(System.out::println);
     }
     private void getAllBooksAfterYear2000(){
         this.bookService.findAllBooksAfterYear2000()

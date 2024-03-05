@@ -74,4 +74,13 @@ public class BookServiceImpl implements BookService {
                 .map(Book::getTitle)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> findAllByBookByGeorgePowellOrdered() {
+        return this.bookRepository
+                .findAllByAuthorFirstNameAndAuthorLastNameOrderByReleaseDateDescTitle("George", "Powell")
+                .stream()
+                .map(b-> String.format("%s %s %d", b.getTitle(), b.getReleaseDate(), b.getCopies()))
+                .collect(Collectors.toList());
+    }
 }

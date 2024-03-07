@@ -17,7 +17,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public boolean areImported() {
-        return false;
+        return this.countryRepository.count()>0;
     }
 
     @Override

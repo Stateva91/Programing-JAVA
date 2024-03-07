@@ -1,8 +1,10 @@
 package softuni.exam.service;
 
 
+import org.springframework.stereotype.Service;
+import softuni.exam.repository.CountryRepository;
+
 import java.io.IOException;
-import java.util.Optional;
 
 // TODO: Implement all methods
 public interface CountryService {
@@ -13,3 +15,4 @@ public interface CountryService {
 	
 	String importCountries() throws IOException;
 }
+

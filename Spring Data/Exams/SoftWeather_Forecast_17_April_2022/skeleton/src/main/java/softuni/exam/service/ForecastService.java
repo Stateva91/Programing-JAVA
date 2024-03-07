@@ -1,5 +1,8 @@
 package softuni.exam.service;
 
+import org.springframework.stereotype.Service;
+import softuni.exam.repository.ForecastRepository;
+
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
@@ -14,3 +17,4 @@ public interface ForecastService {
 
     String exportForecasts();
 }
+

@@ -5,10 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -22,12 +21,12 @@ public class City extends BaseEntity{
     @Column(unique = true, nullable = false)
     private String cityName;
 
-    @Min(value = 2)
+
     @Size(min=2)
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Size(min=500)
+   @Min(value = 500)
     @Column(nullable = false)
     private Long population;
 

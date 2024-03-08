@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @Getter
 @Setter
@@ -17,13 +18,11 @@ import javax.validation.constraints.Min;
 @Table(name="countries")
 public class Country extends BaseEntity{
 
-    @Min(value = 2)
-    @Max(value = 60)
+    @Size(min=2, max=60)
     @Column(nullable = false, unique = true)
     private String countryName;
 
-    @Min(value = 2)
-    @Max(value = 20)
+    @Size(min=2, max=20)
     @Column(nullable = false)
     private String currency;
 }

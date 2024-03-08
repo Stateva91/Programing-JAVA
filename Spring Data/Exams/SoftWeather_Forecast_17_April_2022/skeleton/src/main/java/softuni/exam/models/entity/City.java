@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -16,16 +17,17 @@ import java.util.List;
 @Table(name="cities")
 public class City extends BaseEntity{
 
-    @Min(value=2)
-    @Max(value = 60)
+
+    @Size(min=2, max = 6)
     @Column(unique = true, nullable = false)
     private String cityName;
 
     @Min(value = 2)
+    @Size(min=2)
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Min(value = 499)
+    @Size(min=500)
     @Column(nullable = false)
     private Long population;
 

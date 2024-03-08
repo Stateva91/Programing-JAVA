@@ -11,9 +11,9 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class CountryImportDto {
 
-    @Size(min=20, max=60)
+    @Size(min=2, max=60)
     private String countryName;
 
-    @Size(min=20, max=60)
+    @Size(min=2, max=20)
     private String currency;
 }

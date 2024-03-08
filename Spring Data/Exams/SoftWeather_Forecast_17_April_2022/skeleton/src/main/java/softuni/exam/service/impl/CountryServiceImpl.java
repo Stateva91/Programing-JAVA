@@ -11,12 +11,11 @@ import softuni.exam.util.ValidationUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.List;
 
-import static softuni.exam.config.Messages.INVALID_COUNTRY;
-import static softuni.exam.config.Messages.VALID_COUNTRY;
+import static softuni.exam.constants.Messages.INVALID_COUNTRY;
+import static softuni.exam.constants.Messages.VALID_COUNTRY;
 import static softuni.exam.constants.Paths.COUNTRIES_PATH;
 
 @Service
@@ -45,7 +44,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public String readCountriesFromFile() throws IOException {
-        return Files.readString(Path.of(COUNTRIES_PATH));
+        return Files.readString(COUNTRIES_PATH);
 
     }
 
@@ -56,20 +55,24 @@ public class CountryServiceImpl implements CountryService {
        final List<Country> countries= Arrays.stream(gson.fromJson(readCountriesFromFile(), CountryImportDto[].class))
                 .filter(countryDto -> {
                     boolean isValid = this.validationUtils.isValid(countryDto);
-
+           if( this.countryRepository.findFirstByCountryName(countryDto.getCountryName()).isPresent()){
+               isValid=false;
+           };
                     if(isValid){
                      stringBuilder.append(String.format(VALID_COUNTRY,
                              countryDto.getCountryName(),
                              countryDto.getCurrency()));
+                        this.countryRepository.saveAndFlush(this.modelMapper.map(countryDto, Country.class));
                     } else {
                         stringBuilder.append(INVALID_COUNTRY);
                     }
+
                     return isValid;
                 })
                 .map(countryImportDto -> this.modelMapper.map(countryImportDto, Country.class))
                 .toList();
 
-          this.countryRepository.saveAllAndFlush(countries);
+
         return stringBuilder.toString();
     }
 

@@ -53,7 +53,7 @@ public class CountryServiceImpl implements CountryService {
     public String importCountries() throws IOException {
 
         final  StringBuilder stringBuilder=new StringBuilder();
-       final List<Country> countryStream= Arrays.stream(gson.fromJson(readCountriesFromFile(), CountryImportDto[].class))
+       final List<Country> countries= Arrays.stream(gson.fromJson(readCountriesFromFile(), CountryImportDto[].class))
                 .filter(countryDto -> {
                     boolean isValid = this.validationUtils.isValid(countryDto);
 
@@ -69,8 +69,8 @@ public class CountryServiceImpl implements CountryService {
                 .map(countryImportDto -> this.modelMapper.map(countryImportDto, Country.class))
                 .toList();
 
-
-        return null;
+          this.countryRepository.saveAllAndFlush(countries);
+        return stringBuilder.toString();
     }
 
 }
